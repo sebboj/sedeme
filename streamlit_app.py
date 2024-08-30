@@ -1,7 +1,6 @@
 import streamlit as sl
 import requests
 from streamlit_lottie import st_lottie as sl_loty
-from PIL import Image
 from streamlit.components.v1 import html
 
 sl.set_page_config(page_title='I Am SEDE', page_icon=':male_mage:', layout='wide')
