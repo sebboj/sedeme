@@ -1,5 +1,10 @@
 import streamlit as sl
 
+#vertical spacing
+def V_SPACE(lines):
+    for _ in range(lines):
+        sl.write('&nbsp;')
+
 with sl.container():
     V_SPACE(7)
     sl.markdown("<h1 style='text-align: center; color: #0078d7;'>SHOW ME THE DATA</h1>", unsafe_allow_html=True)
