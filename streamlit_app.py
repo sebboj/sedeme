@@ -1,7 +1,7 @@
+import base64
 import streamlit as sl
 import requests
 from streamlit_lottie import st_lottie as sl_loty
-from PIL import Image
 from streamlit.components.v1 import html
 
 sl.set_page_config(page_title='I Am SEDE', page_icon=':male_mage:', layout='wide')
@@ -12,32 +12,38 @@ def load_lottieurl(url):
         return None
     return r.json()
 
-#use local CSS
+# use local CSS
 def local_css(file_name):
     with open(file_name) as f:
         sl.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 local_css('style/style.css')
 
-#vertical spacing
+# vertical spacing
 def V_SPACE(lines):
     for _ in range(lines):
         sl.write('&nbsp;')
 
-#load assets
-lottie_blob = load_lottieurl('https://lottie.host/33118df1-fd23-404e-84f7-60afb603811e/h9LzOU2qa6.json')
-w_open = 'https://i.imgur.com/Gj4Q7aq.png'
-w_shut = 'https://i.imgur.com/saTyGe0.png'
-w_peek = 'https://i.imgur.com/jitxniN.png'
+# image to base64 string
+def image_to_base64(img_path):
+    with open(img_path, 'rb') as image:
+        base64_string = base64.b64encode(image.read()).decode('utf-8')
+    return base64_string
 
-#landing screen
+# load assets
+lottie_blob = load_lottieurl('https://lottie.host/33118df1-fd23-404e-84f7-60afb603811e/h9LzOU2qa6.json')
+w_open = image_to_base64('images/woodopen.png')
+w_shut = image_to_base64('images/woodshut.png')
+w_peek = image_to_base64('images/woodpeek.png')
+
+# landing screen
 with sl.container():
     V_SPACE(7)
     sl.markdown("<h1 style='text-align: center; color: #0078d7;'>LET THERE BE DATA</h1>", unsafe_allow_html=True)
     V_SPACE(7)
     sl.write('Please  \nScroll All The Way:arrow_double_down:')
 
-#who am I
+# who am I
 with sl.container():
     left_col, right_col = sl.columns(2)
     with left_col:
@@ -56,29 +62,31 @@ with sl.container():
         V_SPACE(1)
         sl_loty(lottie_blob, height=666, key='blob')
 
-#my projects
+# my projects
 with sl.container():
     V_SPACE(2)
     sl.header('My Projects')
     image_col, text_col = sl.columns((1,4))
+
+    # project 1
     with image_col:
         html(
             f"""
             <div id="image-container" class="image-container">
-                <img alt="" src="{w_shut}" style="height: 250px; width: 300px" id="door" onmouseover="handleMouseOver()" onmouseout="handleMouseOut()"onclick="handleClick()"/>
+                <img alt="" src="data:image/png;base64,{w_shut}" style="height: 250px; width: 300px" id="door" onmouseover="handleMouseOver()" onmouseout="handleMouseOut()"onclick="handleClick()"/>
             </div>
             <script>
             function handleMouseOver() {{
                 console.log('over');
-                document.getElementById('door').src = '{w_peek}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_peek}';
             }}
             function handleMouseOut() {{
                 console.log('out');
-                document.getElementById('door').src = '{w_shut}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_shut}';
             }}
             function handleClick() {{
                 console.log('click');
-                document.getElementById('door').src = '{w_open}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_open}';
                 window.location.href = 'https://www.themangoplace.com/'; //replace w desired page
             }}
             </script>
@@ -111,24 +119,26 @@ with sl.container():
             '''
         )
         V_SPACE(1)
+
+    # project 2
     with image_col:
         html(
             f"""
             <div id="image-container" class="image-container">
-                <img alt="" src="{w_shut}" style="height: 250px; width: 300px" id="door" onmouseover="handleMouseOver()" onmouseout="handleMouseOut()"onclick="handleClick()"/>
+                <img alt="" src="data:image/png;base64,{w_shut}" style="height: 250px; width: 300px" id="door" onmouseover="handleMouseOver()" onmouseout="handleMouseOut()"onclick="handleClick()"/>
             </div>
             <script>
             function handleMouseOver() {{
                 console.log('over');
-                document.getElementById('door').src = '{w_peek}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_peek}';
             }}
             function handleMouseOut() {{
                 console.log('out');
-                document.getElementById('door').src = '{w_shut}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_shut}';
             }}
             function handleClick() {{
                 console.log('click');
-                document.getElementById('door').src = '{w_open}';
+                document.getElementById('door').src = 'data:image/png;base64,{w_open}';
                 window.location.href = 'https://www.themangoplace.com/'; //replace w desired page
             }}
             </script>
@@ -161,7 +171,8 @@ with sl.container():
             '''
         )
         V_SPACE(1)
-#contact me
+
+# contact me
 with sl.container():
     sl.write('---')
     sl.header('Kindly connect with me')
