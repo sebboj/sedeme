@@ -93,7 +93,8 @@ with sl.container():
             function handleClick() {{
                 console.log('click');
                 document.getElementById('door').src = 'data:image/png;base64,{w_open}';
-                window.location.pathname = '/projects'; 
+                location.href = 'https://www.themangoplace.com/';
+                //window.location.pathname = '/projects'; 
             }}
             </script>
 
